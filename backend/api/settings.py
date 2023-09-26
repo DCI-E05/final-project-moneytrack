@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "dj_rest_auth.registration",
-    "rest_framework",
     "categories",
     "expenses",
     "income",
@@ -114,8 +113,6 @@ DATABASES = {
     }
 }
 
-print(os.getenv("DB_USER"))
-print(os.getenv("DB_PASSWORD"))
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
