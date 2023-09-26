@@ -1,8 +1,7 @@
 from rest_framework import serializers
-from rest_framework import permissions
-from .models import Expence
+from .models import Expense
 
 class ExpenseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Expence
+        model = Expense
         fields = '__all__'
