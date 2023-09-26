@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "categories",
     "expenses",
     "income",
-    
+    'rest_framework',
     
 ]
 
