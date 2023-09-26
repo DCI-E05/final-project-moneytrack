@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "categories",
     "rest_framework",
     "categories",
+    
 ]
 
 MIDDLEWARE = [
