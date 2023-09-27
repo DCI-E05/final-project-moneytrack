@@ -54,8 +54,6 @@ INSTALLED_APPS = [
     "categories",
     "income",
     "user",
-    
-
 ]
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SITE_ID = 1
