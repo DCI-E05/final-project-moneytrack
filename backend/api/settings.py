@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-    "rest_framework",
     "rest_framework.authtoken",
     "dj_rest_auth",
     "allauth",
@@ -53,7 +52,7 @@ INSTALLED_APPS = [
     "categories",
     "expenses",
     "income",
-    "user",
+    "customer",
     
 ]
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -76,7 +75,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "api.urls"
@@ -107,15 +105,14 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "moneyflow",
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
+        'USER': os.getenv("db_USER"),  # Ensure it matches your .env variable name
+        'PASSWORD': os.getenv("db_PASSWORD"), 
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
 }
 
-print(os.getenv("DB_USER"))
-print(os.getenv("DB_PASSWORD"))
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
