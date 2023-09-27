@@ -17,3 +17,5 @@ class ExpensesCategory(models.Model):
     date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255)
     description = models.TextField()
+
+
