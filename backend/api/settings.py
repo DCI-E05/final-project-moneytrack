@@ -48,9 +48,9 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "dj_rest_auth.registration",
-    "rest_framework",
-    "categories",
+    "corsheaders",
     "expenses",
+    "categories",
     "income",
     "customer",
     
@@ -75,6 +75,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "api.urls"
@@ -111,7 +114,6 @@ DATABASES = {
         "PORT": "5432",
     }
 }
-
 
 
 # Password validation
@@ -163,3 +165,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
+
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000", # REACT APP
+]
