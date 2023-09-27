@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from .serializers import IncomeCategorySerializer, ExpensesCategorySerializer
+from rest_framework.viewsets import ModelViewSet
+from .models import IncomeCategory , ExpensesCategory
 
-# Create your views here.
+
+class IncomeCategoryView(ModelViewSet):
+    serializer_class = IncomeCategorySerializer
+    queryset = IncomeCategory.objects.all()
+
+class ExpensesCategoryView(ModelViewSet):
+    serializer_class = ExpensesCategorySerializer
+    queryset = ExpensesCategory.objects.all()
