@@ -1,12 +1,12 @@
-from .serializers import IncomeCategoriesSerializer, ExpensesCategoriesSerializer
+from .serializers import IncomeCategorySerializer, ExpensesCategorySerializer
 from rest_framework.viewsets import ModelViewSet
-from .models import IncomeCategories , ExpensesCategories
+from .models import IncomeCategory , ExpensesCategory
 
 
-class IncomeCategoriesView(ModelViewSet):
-    serializer_class = IncomeCategoriesSerializer
-    queryset = IncomeCategories.objects.all()
+class IncomeCategoryView(ModelViewSet):
+    serializer_class = IncomeCategorySerializer
+    queryset = IncomeCategory.objects.all()
 
-class ExpensesCategoriesView(ModelViewSet):
-    serializer_class = ExpensesCategoriesSerializer
-    queryset = ExpensesCategories.objects.all()
+class ExpensesCategoryView(ModelViewSet):
+    serializer_class = ExpensesCategorySerializer
+    queryset = ExpensesCategory.objects.all()
