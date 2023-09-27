@@ -6,7 +6,7 @@ class Expense(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     category = models.ForeignKey(ExpensesCategory, on_delete=models.CASCADE)
-    amount = models.FloatField()
+    amount = models.FloatField(default=0)
     description = models.TextField()
     date = models.DateTimeField(auto_now=True)
 
