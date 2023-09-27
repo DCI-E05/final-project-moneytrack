@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "categories",
     "django_extensions",
     "rest_framework",
     "rest_framework.authtoken",
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     "income",
     "user",
     
+
 ]
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SITE_ID = 1
