@@ -1,14 +1,13 @@
-from .models import IncomeCategories
 from rest_framework import serializers
-from .models import IncomeCategories, ExpensesCategories
+from .models import IncomeCategory, ExpensesCategory
 
 
-class IncomeCategoriesSerializer(serializers.ModelSerializer):
+class IncomeCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = IncomeCategories
+        model = IncomeCategory
         fields = '__all__'
 
-class ExpensesCategoriesSerializer(serializers.ModelSerializer):
+class ExpensesCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = ExpensesCategories
+        model = ExpensesCategory
         fields = '__all__'
