@@ -43,12 +43,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_extensions",
     "rest_framework.authtoken",
+    "rest_framework",
     "dj_rest_auth",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "dj_rest_auth.registration",
-    "corsheaders",
+    #"corsheaders",
     "expenses",
     "categories",
     "income",
@@ -75,8 +76,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "allauth.account.middleware.AccountMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
+    #"allauth.account.middleware.AccountMiddleware",
+    #"corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
 ]
 
@@ -166,8 +167,8 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ALLOW_ALL_ORIGINS = False
+#CORS_ALLOW_ALL_ORIGINS = False
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000", # REACT APP
-]
+#CORS_ALLOWED_ORIGINS = [
+   # "http://localhost:3000", # REACT APP
+#]

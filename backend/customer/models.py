@@ -10,6 +10,7 @@ class Profile(models.Model):
         default=uuid.uuid4,
         editable=False, 
         unique=True,
+        primary_key=True
     )
 
 
