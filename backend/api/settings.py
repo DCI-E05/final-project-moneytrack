@@ -162,7 +162,6 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Moneyfer is a personal money management app, which allow you to keep track on your financial goals and to enhance your money usage.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    # OTHER SETTINGS
 }
 
 CORS_ALLOW_ALL_ORIGINS = False
