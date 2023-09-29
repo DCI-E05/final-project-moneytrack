@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "categories",
     "income",
     "customer",
+    "data",
     
 ]
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
