@@ -11,7 +11,6 @@ import uuid
 class ExpensesTest(TestCase):
     
     def setUp(self):
-        id = uuid.uuid4()
         self.client = APIClient()
         self.user_data = {
                 "username": "testUser",
