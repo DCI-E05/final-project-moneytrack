@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-    "rest_framework",
     "rest_framework.authtoken",
+    "rest_framework",
     "dj_rest_auth",
     "allauth",
     "allauth.account",
@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     "expenses",
     "categories",
     "income",
-    "user",
+    "customer",
+    
 ]
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SITE_ID = 1
@@ -108,8 +109,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "moneyflow",
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
+        'USER': os.getenv("DB_USER"),  # Ensure it matches your .env variable name
+        'PASSWORD': os.getenv("DB_PASSWORD"), 
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
@@ -151,6 +152,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
