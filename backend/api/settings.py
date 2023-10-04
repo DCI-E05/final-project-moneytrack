@@ -18,6 +18,9 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+CSV_FILE_income = BASE_DIR / "income/management/commands/income.csv"
+CSV_FILE_expenses = BASE_DIR / "expenses/management/commands/expenses.csv"
+MINDEE_API_KEY="73e50691fb9297e9215c51957cce7e5f"
 
 
 # Quick-start development settings - unsuitable for production
