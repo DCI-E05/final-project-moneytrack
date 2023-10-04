@@ -8,3 +8,8 @@ class FinanceData(models.Model):
     withdraw = models.FloatField(null=True)
     deposit = models.FloatField(null=True)
     balance = models.FloatField()
+    
+    
+    def calculate_balance(self):
+        self.balance = self.balance + self.deposit - self.withdraw
+        self.save()
