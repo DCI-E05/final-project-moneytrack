@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "dj_rest_auth.registration",
     "corsheaders",
+    "drf_spectacular",
     "expenses",
     "categories",
     "income",
@@ -58,15 +59,6 @@ INSTALLED_APPS = [
 ]
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SITE_ID = 1
-
-REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
-    ],
-    
-}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -164,7 +156,15 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',    
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Moneyfer',
+    'DESCRIPTION': 'Moneyfer is a personal money management app, which allow you to keep track on your financial goals and to enhance your money usage.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 CORS_ALLOW_ALL_ORIGINS = False
