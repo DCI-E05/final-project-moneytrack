@@ -76,6 +76,14 @@ class ExpensesTest(TestCase):
         self.assertEqual(patched_expense["description"], "This is result of changing expense entity")
         
         
-        
     def test_deletion(self):
-        ...
+        expense = self.client.post("/expenses/", self.expense_data).json()
+        expense1 = self.client.post("/expenses/", self.expense_data).json()
+        
+        self.assertEqual(Expense.objects.count(), 2)
+                
+        self.client.delete(f"/expenses/{expense1['id']}/")        
+        self.assertEqual(Expense.objects.count(), 1)
+        
+        self.client.delete(f"/expenses/{expense['id']}/")
+        self.assertEqual(Expense.objects.count(), 0)
