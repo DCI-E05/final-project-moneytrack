@@ -39,7 +39,6 @@ class ExpensesTest(TestCase):
         self.category_data['user'] = last_user_id
         
         self.category = self.client.post("/categories/expenses-category/", self.category_data).json()
-        print(self.category)
         self.expense_data['category'] = ExpensesCategory.objects.last().id
         
         self.user = self.client.post('/customer/rest-auth/login/', {"username": self.user_data["username"], "email": self.user_data['email'], "password": self.user_data['password1']})
@@ -65,7 +64,18 @@ class ExpensesTest(TestCase):
         self.assertEqual(len(expenses), 3)
         
     def test_update(self):
-        ...
+        expense = self.client.post("/expenses/", self.expense_data).json()
+        
+        self.changed_expense_data = self.expense_data.copy()
+        
+        patched_expense = self.client.patch(f"/expenses/{expense['id']}/", 
+                          {"name": "My PATCHed expense", 
+                           "description": "This is result of changing expense entity"}).json()
+        
+        self.assertEqual(patched_expense["name"], "My PATCHed expense")
+        self.assertEqual(patched_expense["description"], "This is result of changing expense entity")
+        
+        
         
     def test_deletion(self):
         ...
