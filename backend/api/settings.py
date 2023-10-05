@@ -18,6 +18,9 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+CSV_FILE_income = BASE_DIR / "income/management/commands/income.csv"
+CSV_FILE_expenses = BASE_DIR / "expenses/management/commands/expenses.csv"
+MINDEE_API_KEY="73e50691fb9297e9215c51957cce7e5f"
 
 
 # Quick-start development settings - unsuitable for production
@@ -50,15 +53,16 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "dj_rest_auth.registration",
     "corsheaders",
+    "drf_spectacular",
     "expenses",
     "categories",
     "income",
     "customer",
+    "data",
 ]
 
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # SITE_ID = 1
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -158,7 +162,15 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',    
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Moneyfer',
+    'DESCRIPTION': 'Moneyfer is a personal money management app, which allow you to keep track on your financial goals and to enhance your money usage.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 CORS_ALLOW_ALL_ORIGINS = False
