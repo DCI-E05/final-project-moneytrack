@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from django.conf import settings
 from mindee import Client, documents
 from .forms import DocUploadForm
+from .utils import import_income_from_csv, clear_csv_data
 import csv
 
 class IncomeViewSet(viewsets.ModelViewSet):
@@ -45,16 +46,19 @@ def process_mindee_api(receipt_image, request):
     supplier_name = invoice.supplier_name if hasattr(invoice, 'supplier_name') else None
     invoice_date = invoice.invoice_date if hasattr(invoice, 'invoice_date') else None
     total_amount = invoice.total_amount if hasattr(invoice, 'total_amount') else None
+    category = invoice.document_type if hasattr(invoice, 'document_type') else None
 
     try:
-        write_to_income_csv(request.user.username, supplier_name, invoice_date, total_amount)
+        write_to_income_csv(request.user.username, supplier_name, invoice_date, total_amount, category)
+        import_income_from_csv(settings.CSV_FILE_INCOME)
+        clear_csv_data(settings.CSV_FILE_INCOME)
     except Exception as e:
         raise Exception(f"Error writing to CSV: {e}")
 
 
-def write_to_income_csv(username, supplier_name, invoice_date, total_amount):
+def write_to_income_csv(username, supplier_name, invoice_date, total_amount, category):
     with open(settings.CSV_FILE_INCOME, 'a', newline='') as csvfile:
-        fieldnames = ['user', 'income_source', 'date', 'amount']
+        fieldnames = ['user', 'income_source', 'date', 'amount', 'category']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         if csvfile.tell() == 0:
@@ -64,6 +68,6 @@ def write_to_income_csv(username, supplier_name, invoice_date, total_amount):
             'user': username,
             'income_source': supplier_name,
             'date': invoice_date,
-            'amount': total_amount
+            'amount': total_amount,
+            'category': category
         })
-
