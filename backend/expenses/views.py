@@ -1,15 +1,12 @@
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import viewsets, status, permissions
+from rest_framework.response import Response
+from rest_framework.decorators import action
 from .serializers import ExpenseSerializer
 from .models import Expense
-from django.shortcuts import render, redirect
 from django.conf import settings
 from mindee import Client, documents
-from django.contrib.auth.decorators import login_required
 from .forms import ReceiptUploadForm
 import csv
-from django.contrib import messages
-
 
 class ExpensesViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
@@ -21,34 +18,22 @@ class ExpensesViewSet(viewsets.ModelViewSet):
         query_set = self.queryset
         return query_set.filter(user=user)
 
-class ReceiptUpload(viewsets.ModelViewSet):
+    @action(detail=False, methods=['POST'], permission_classes=[permissions.IsAuthenticated])
+    def upload_receipt(self, request):
+        form = ReceiptUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            receipt_image = request.FILES['receipt_image']
+            if not receipt_image.content_type.startswith('image/'):
+                return Response({"error": "Invalid file type. Please upload an image."}, status=status.HTTP_400_BAD_REQUEST)
 
-    def success_view(request):
-        return render(request, 'success.html') #will configure this after frontend is ready
+            try:
+                process_mindee_api(receipt_image, request)
+            except Exception as e:
+                return Response({"error": f"Error with Mindee API: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    @login_required
-    def upload_receipt(request):
-        if request.method == 'POST':
-            form = ReceiptUploadForm(request.POST, request.FILES)
-            if form.is_valid():
-                receipt_image = request.FILES['receipt_image'] #will configure this after frontend is ready
-                if not receipt_image.content_type.startswith('image/'):
-                    messages.error(request, "Invalid file type. Please upload an image.")
-                    return render(request, 'upload_receipt.html', {'form': form})
+            return Response({"message": "Receipt processed successfully."}, status=status.HTTP_200_OK)
 
-                try:
-                    process_mindee_api(receipt_image, request)
-                except Exception as e:
-                    messages.error(request, f"Error with Mindee API: {e}")
-                    return render(request, 'upload_receipt.html', {'form': form})
-
-                return redirect('success_view')
-
-        else:
-            form = ReceiptUploadForm()
-
-        return render(request, 'upload_expenses_receipt.html', {'form': form})
-
+        return Response({"error": "Invalid form submission."}, status=status.HTTP_400_BAD_REQUEST)
 
 def process_mindee_api(receipt_image, request):
     mindee_client = Client(api_key=settings.MINDEE_API_KEY)
@@ -67,7 +52,7 @@ def process_mindee_api(receipt_image, request):
 
 
 def write_to_csv(invoice, username, supplier_name, invoice_date):
-    with open(settings.CSV_FILE_expenses, 'a', newline='') as csvfile:
+    with open(settings.CSV_FILE_EXPENSES, 'a', newline='') as csvfile:
         fieldnames = ['user', 'supplier_name', 'invoice_date', 'description', 'quantity', 'unit_price', 'total_amount']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 

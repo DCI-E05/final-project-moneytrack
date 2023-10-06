@@ -18,8 +18,8 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-CSV_FILE_income = BASE_DIR / "income/management/commands/income.csv"
-CSV_FILE_expenses = BASE_DIR / "expenses/management/commands/expenses.csv"
+CSV_FILE_INCOME = BASE_DIR / "income/management/commands/income.csv"
+CSV_FILE_EXPENSES = BASE_DIR / "expenses/management/commands/expenses.csv"
 MINDEE_API_KEY="73e50691fb9297e9215c51957cce7e5f"
 
 
@@ -157,10 +157,14 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ]     ,
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',    
 }
 
