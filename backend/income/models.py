@@ -9,7 +9,7 @@ class Income(models.Model):
     name = models.CharField(max_length=255, default="New income")
     amount = models.FloatField(default=0)
     category = models.ForeignKey(IncomeCategory, on_delete=models.CASCADE)  # Define Category model before using it
-    date = models.DateTimeField(default=datetime.now)
+    date = models.DateField()
     description = models.TextField(default="Empty description")
 
     def __str__(self):
