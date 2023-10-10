@@ -11,7 +11,7 @@ def import_expense_from_csv(csv_file_path):
         
         for row in csv_reader:
             if not row['user']:
-                #print(f"Skipping row due to missing user: {row}")
+                print(f"Skipping row due to missing user: {row}")
                 continue
             
             try:

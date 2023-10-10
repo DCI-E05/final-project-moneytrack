@@ -20,7 +20,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 CSV_FILE_INCOME = BASE_DIR / "income/management/commands/income.csv"
 CSV_FILE_EXPENSES = BASE_DIR / "expenses/management/commands/expenses.csv"
-MINDEE_API_KEY="73e50691fb9297e9215c51957cce7e5f"
+MINDEE_API_KEY="e1e91329489a4be5f3d8df4a6add17d1"
 
 
 # Quick-start development settings - unsuitable for production
