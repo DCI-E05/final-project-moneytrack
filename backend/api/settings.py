@@ -165,8 +165,8 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Moneyfer',
-    'DESCRIPTION': 'Moneyfer is a personal money management app, which allow you to keep track on your financial goals and to enhance your money usage.',
+    'TITLE': 'FinGen',
+    'DESCRIPTION': 'FinGen is a personal money management app, which allow you to keep track on your financial goals and to enhance your money usage.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
