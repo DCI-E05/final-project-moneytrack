@@ -20,7 +20,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 CSV_FILE_INCOME = BASE_DIR / "income/management/commands/income.csv"
 CSV_FILE_EXPENSES = BASE_DIR / "expenses/management/commands/expenses.csv"
-MINDEE_API_KEY="73e50691fb9297e9215c51957cce7e5f"
+MINDEE_API_KEY=os.getenv("MINDEE_API_KEY")
 
 
 # Quick-start development settings - unsuitable for production
@@ -162,6 +162,7 @@ REST_FRAMEWORK = {
 
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication'
     ]     ,

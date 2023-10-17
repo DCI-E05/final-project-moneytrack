@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.conf import settings
 from mindee import Client, documents
-from .forms import DocUploadForm
+from .forms import IncomeUploadForm
 from .utils import import_income_from_csv, clear_csv_data
 import csv
 
@@ -21,7 +21,7 @@ class IncomeViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['POST'], permission_classes=[permissions.IsAuthenticated])
     def upload_receipt(self, request):
-        form = DocUploadForm(request.POST, request.FILES)
+        form = IncomeUploadForm(request.POST, request.FILES)
         if form.is_valid():
             receipt_image = request.FILES['receipt_image']
             if not receipt_image.content_type.startswith('image/'):
