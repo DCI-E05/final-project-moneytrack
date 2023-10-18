@@ -12,5 +12,7 @@ class FinanceData(models.Model):
     balance = models.FloatField()
     
     
-    def calculate_balance(self):
-        return  self.balance + self.deposit - self.withdraw
+class UploadedFile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True,blank=True)
+    file = models.FileField(upload_to='backend/data/management')
+    uploaded_at = models.DateTimeField(auto_now_add=True)

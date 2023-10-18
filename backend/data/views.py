@@ -1,22 +1,46 @@
-from rest_framework.parsers import FileUploadParser
+from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
-from .serializers import FileUploadSerializer
+from .serializers import FileUploadSerializer, FinanceDataSerializer
+from .models import FinanceData
+from rest_framework.pagination import PageNumberPagination
+import os
 
-class FileUploadView(APIView):
-   # parser_classes = (FileUploadParser,)
 
-    def post(self, request, format=None):
+
+
+class FileUploadView(viewsets.ViewSet):
+    def create(self, request, format=None):
         serializer = FileUploadSerializer(data=request.data)
 
         if serializer.is_valid():
-            file = serializer.validated_data['file']
-            print("Uploaded file")
-            print(type(file))
+            uploaded_file = serializer.validated_data['file']
+            file_directory = 'your_custom_file_directory/'
+            file_path = os.path.join(file_directory, uploaded_file.name)
 
-            # Process the uploaded file here, for example, save it or call your existing management command
+            if not os.path.exists(file_directory):
+                os.makedirs(file_directory)
+
+            with open(file_path, 'wb') as destination:
+                for chunk in uploaded_file.chunks():
+                    destination.write(chunk)
 
             return Response({'message': 'File uploaded and processed successfully.'}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FinanceDataView(viewsets.ModelViewSet):
+    queryset = FinanceData.objects.all()
+    serializer_class = FinanceDataSerializer
+    pagination_class = PageNumberPagination
+
+
+class FinanceDataListView(generics.ListAPIView):
+    queryset = FinanceData.objects.all()
+    serializer_class = FinanceDataSerializer
+
+
+class FinanceDataDetailView(generics.RetrieveAPIView):
+    queryset = FinanceData.objects.all()
+    serializer_class = FinanceDataSerializer
