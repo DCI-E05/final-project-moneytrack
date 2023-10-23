@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from datetime import datetime, timezone
 from categories.models import IncomeCategory
 from income.models import Income  
-from django.urls import reverse
 from rest_framework import status
 
 
