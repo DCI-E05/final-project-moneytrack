@@ -20,6 +20,8 @@ class FileUploadView(viewsets.ViewSet):
 
             if not os.path.exists(file_directory):
                 os.makedirs(file_directory)
+                
+
 
             with open(file_path, 'wb') as destination:
                 for chunk in uploaded_file.chunks():

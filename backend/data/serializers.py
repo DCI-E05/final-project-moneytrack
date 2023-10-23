@@ -1,9 +1,11 @@
 from rest_framework import serializers
+from .models import FinanceData, UploadedFile
 
-class FileUploadSerializer(serializers.Serializer):
-    file = serializers.FileField()
+class FileUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UploadedFile
+        fields = ('user', 'file', 'uploaded_at')
 
-from .models import FinanceData
 
 class FinanceDataSerializer(serializers.ModelSerializer):
     class Meta:
