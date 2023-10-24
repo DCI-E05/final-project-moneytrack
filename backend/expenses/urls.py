@@ -3,7 +3,7 @@ from .views import ExpensesViewSet
 
 
 router = DefaultRouter()
-router.register(r"", ExpensesViewSet)
+router.register(r"", ExpensesViewSet, basename='expenses')
 
 urlpatterns = router.urls
 

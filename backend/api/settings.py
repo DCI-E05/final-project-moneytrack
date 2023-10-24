@@ -18,6 +18,9 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+CSV_FILE_INCOME = BASE_DIR / "income/management/commands/income.csv"
+CSV_FILE_EXPENSES = BASE_DIR / "expenses/management/commands/expenses.csv"
+MINDEE_API_KEY=os.getenv("MINDEE_API_KEY")
 
 
 # Quick-start development settings - unsuitable for production
@@ -163,17 +166,24 @@ REST_FRAMEWORK = {
 
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication'
     ]     ,
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,  
+
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ]     ,
+
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',    
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Moneyfer',
-    'DESCRIPTION': 'Moneyfer is a personal money management app, which allow you to keep track on your financial goals and to enhance your money usage.',
+    'TITLE': 'FinGen',
+    'DESCRIPTION': 'FinGen is a personal money management app, which allow you to keep track on your financial goals and to enhance your money usage.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
