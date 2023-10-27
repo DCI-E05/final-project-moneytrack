@@ -43,13 +43,3 @@ class FinanceDataView(viewsets.ModelViewSet):
     queryset = FinanceData.objects.all()
     serializer_class = FinanceDataSerializer
     pagination_class = PageNumberPagination
-
-
-class FinanceDataListView(generics.ListAPIView):
-    queryset = FinanceData.objects.all()
-    serializer_class = FinanceDataSerializer
-
-
-class FinanceDataDetailView(generics.RetrieveAPIView):
-    queryset = FinanceData.objects.all()
-    serializer_class = FinanceDataSerializer

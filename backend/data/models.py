@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class FinanceData(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True,blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True, blank=True)
     account_number = models.CharField(max_length=100)
     date = models.DateField(auto_now=True)
     details = models.CharField( max_length=255)
@@ -13,6 +13,6 @@ class FinanceData(models.Model):
     
     
 class UploadedFile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True,blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True, blank=True)
     file = models.FileField(upload_to='backend/data/management')
     uploaded_at = models.DateTimeField(auto_now_add=True)
