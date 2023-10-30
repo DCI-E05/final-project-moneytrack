@@ -59,10 +59,10 @@ INSTALLED_APPS = [
     "income",
     "customer",
     "data",
-    
 ]
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-SITE_ID = 1
+
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -112,6 +112,8 @@ DATABASES = {
         "PORT": "5432",
     }
 }
+
+TEMPLATE_EXTENSION = "html"
 
 
 # Password validation
