@@ -1,22 +1,37 @@
-from django.urls import reverse
-from rest_framework import status
-from rest_framework.test import APITestCase
+from django.test import TestCase
 from django.contrib.auth.models import User
+from .models import Profile
 
+class ProfileTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='dciuser',
+            password='dcipassword'
+        )
+        self.profile = Profile.objects.create(
+            user=self.user,
+            image='my_image.jpg'
+        )
 
-class UserTests(APITestCase):
-    def test_create_account(self):
-        """
-        Ensure we can create a new account object.
-        """
-        url = reverse("rest_register")
-        data = {
-            "username": "moneytest",
-            "email": "money@dci.edu",
-            "password1": "my@123@0",
-            "password2": "my@123@0",
-        }
-        response = self.client.post(url, data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(User.objects.count(), 1)
-        self.assertEqual(User.objects.get().username, "moneytest")
+    def test_profile_creation(self):
+        """Test if a profile is created correctly."""
+        self.assertEqual(self.profile.user, self.user)
+        self.assertEqual(self.profile.image, 'my_image.jpg')
+        
+    def test_profile_update(self):
+        """Test updating a profile."""
+        updated_image = 'new_image.jpg'
+        self.profile.image = updated_image
+        self.profile.save()
+        updated_profile = Profile.objects.get(pk=self.profile.pk)
+        self.assertEqual(updated_profile.image, updated_image)
+        
+    def test_profile_deletion(self):
+        """Test deleting a profile."""
+        profile_uuid = self.profile.uuid  
+        self.profile.delete()
+        try:
+            deleted_profile = Profile.objects.get(uuid=profile_uuid)
+        except Profile.DoesNotExist:
+            deleted_profile = None
+        self.assertIsNone(deleted_profile)

@@ -18,9 +18,9 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-CSV_FILE_income = BASE_DIR / "income/management/commands/income.csv"
-CSV_FILE_expenses = BASE_DIR / "expenses/management/commands/expenses.csv"
-MINDEE_API_KEY="73e50691fb9297e9215c51957cce7e5f"
+CSV_FILE_INCOME = BASE_DIR / "income/management/commands/income.csv"
+CSV_FILE_EXPENSES = BASE_DIR / "expenses/management/commands/expenses.csv"
+MINDEE_API_KEY=os.getenv("MINDEE_API_KEY")
 
 
 # Quick-start development settings - unsuitable for production
@@ -75,6 +75,7 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "api.urls"
@@ -152,6 +153,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+ALLOWED_EXTENSIONS = ['.xlsx', '.csv']
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -159,16 +162,23 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
     ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',    
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Moneyfer',
-    'DESCRIPTION': 'Moneyfer is a personal money management app, which allow you to keep track on your financial goals and to enhance your money usage.',
+    'TITLE': 'FinGen',
+    'DESCRIPTION': 'FinGen is a personal money management app, which allow you to keep track on your financial goals and to enhance your money usage.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
